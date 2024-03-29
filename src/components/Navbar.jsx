@@ -1,7 +1,4 @@
-import { BiSearch } from 'react-icons/bi'
-import { GiHamburgerMenu } from 'react-icons/gi'
-import { BsFillPersonFill } from 'react-icons/bs'
-import { Link } from 'react-router-dom'
+
 const Navbar = () => {
     return (
         <div>

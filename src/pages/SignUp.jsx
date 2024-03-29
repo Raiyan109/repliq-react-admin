@@ -1,81 +1,82 @@
-import { Link } from 'react-router-dom';
-import logo from '../assets/react.svg'
+
+import app from "../firebase.config";
+import { RecaptchaVerifier, getAuth, onAuthStateChanged, signInWithPhoneNumber } from "firebase/auth";
+import { useEffect, useState } from "react";
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-    const handleSubmit = () => {
+    const [user, setUser] = useState(null)
+    const [phone, setPhone] = useState('')
+    const [otp, setOtp] = useState('')
+    const auth = getAuth(app)
+    const navigate = useNavigate()
 
+    useEffect(() => {
+        const unRegistered = onAuthStateChanged(auth, (currentUser) => {
+            console.log(currentUser);
+            setUser(currentUser)
+        })
+    }, [])
+
+    const sendOtp = async () => {
+        try {
+            const recaptcha = new RecaptchaVerifier(auth, 'recaptcha-container', {});
+            const confirmation = await signInWithPhoneNumber(auth, phone, recaptcha)
+            setUser(confirmation)
+            console.log(confirmation);
+        } catch (error) {
+            console.error(error);
+        }
     }
+
+    const verifyOtp = async () => {
+        try {
+            const data = await user.confirm(otp)
+            console.log(data);
+            navigate('/')
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+
     return (
-        <div className="relative py-16 bg-gradient-to-br from-sky-50 to-gray-200">
-            <div className="relative container m-auto px-6 text-gray-500 md:px-12 xl:px-40">
-                <div className="m-auto md:w-8/12 lg:w-6/12 xl:w-6/12">
-                    <div className="rounded-xl bg-white shadow-xl">
-                        <div className="p-6 sm:p-16">
-                            <div className="space-y-4">
-                                <img src={logo} loading="lazy" className="w-10" alt="logo" />
-                                <h2 className="mb-8 text-2xl text-cyan-900 font-bold">Sign up to unlock the <br /> best of Dream Colleges.</h2>
-                            </div>
-                            <form onSubmit={handleSubmit}>
-                                <div className="mt-16 grid space-y-4">
-                                    <label className="font-semibold text-xs" >Username or Email</label>
-                                    <input
+        <div className="flex flex-col justify-center items-center mx-auto mt-12">
+            <h1 className="text-4xl py-12">Sign in with Phone Number</h1>
+            <div className="space-y-2">
+                <PhoneInput
+                    country={'bd'}
+                    value={phone}
+                    onChange={(phone) => setPhone('+' + phone)}
 
-                                        className="flex items-center group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100" type="email" />
+                />
 
+                <button onClick={sendOtp} type="button" className="px-8 py-3 font-semibold rounded bg-blue-500 dark:bg-gray-800 dark:text-gray-100">Send OTP</button>
 
+                {/* Recaptcha container */}
+                <div id="recaptcha-container">
 
-                                    <div className="relative w-full">
-                                        <div className="absolute inset-y-0 right-1 flex items-center px-2 top-6 text-2xl cursor-pointer">
-                                            {/* Show password icon */}
-                                            {/* <div onClick={togglePassword}>
-                                            {showPassword ? (<AiFillEyeInvisible />) : (<AiFillEye />)}
-                                        </div> */}
-                                        </div>
-                                        <label className="font-semibold text-xs mt-3" >Password</label>
-                                        <input
+                </div>
 
-                                            className=" group w-full py-3 px-3 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
-                                        // type={showPassword ? "text" : "password"} 
-                                        />
-                                    </div>
+                {/* Enter otp */}
+                <div className="flex items-end gap-5">
+                    <fieldset className="w-full space-y-1 dark:text-gray-800">
+                        <label htmlFor="Search" className="hidden">Enter otp</label>
+                        <div className="">
 
-                                    <label className="font-semibold text-xs mt-3" >Confirm password</label>
-                                    <input
-
-                                        className="flex items-center group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100" type="password" />
-
-                                    <input className='flex items-center justify-center group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300  hover:text-black text-white font-semibold bg-gray-800 hover:bg-gray-300 cursor-pointer' type="submit" value="Sign Up" />
-
-                                    <p>Or use any of these...</p>
-
-                                    <button
-                                        className="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
-
-                                        <div className="relative flex items-center space-x-4 justify-center">
-                                            <img src="https://tailus.io/sources/blocks/social/preview/images/google.svg" className="absolute left-0 w-5" alt="google logo" />
-                                            <span className="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Continue with Google</span>
-                                        </div>
-                                    </button>
-
-                                    <button
-                                        className="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
-                         hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
-                                        <div className="relative flex items-center space-x-4 justify-center">
-                                            <img src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg" className="absolute left-0 w-5" alt="Facebook logo" />
-                                            <span className="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Continue with Facebook</span>
-                                        </div>
-                                    </button>
-                                </div>
-                            </form>
-
-
-                            <p className='mt-6 font-semibold'>Already have an account?
-                                <Link className='text-blue-500 ml-3' to={'/login'}>Login</Link>
-                            </p>
-                            <p className='py-6 '>Forgotten Password?
-                                <Link className='text-blue-500 ml-3' to={'/forgot-password'}>Reset password</Link></p>
+                            <input type="text"
+                                onChange={(e) => setOtp(e.target.value)}
+                                name="Search" placeholder="Enter OTP" className="w-32 py-2 pl-10 text-sm rounded-md sm:w-auto focus:outline-gray-300 
+                        outline
+                        outline-gray-700
+                        dark:bg-gray-100 dark:text-gray-800 focus:dark:bg-gray-50 focus:dark:border-violet-600" />
                         </div>
-                    </div>
+                    </fieldset>
+
+                    <button type="button" onClick={verifyOtp} className="px-12 py-2 w-full font-semibold rounded bg-green-500 dark:bg-gray-800 dark:text-gray-100">Verify OTP</button>
                 </div>
             </div>
         </div>
