@@ -28,17 +28,17 @@ const routes = createBrowserRouter([
     {
         path: '/dashboard',
         element: <Dashboard />,
-        // children: [
-        //     {
-        //         path: 'statistics',
-        //         element: <Statistics />
-        //     },
-        // ]
+        children: [
+            {
+                path: 'statistics',
+                element: <Statistics />
+            },
+        ]
     },
-    {
-        path: '/statistics',
-        element: <Statistics />
-    },
+    // {
+    //     path: '/statistics',
+    //     element: <Statistics />
+    // },
     {
         path: '/:id',
         element: <ProductDetail />

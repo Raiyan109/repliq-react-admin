@@ -1,10 +1,10 @@
-import Statistics from "../components/Statistics";
+import { Outlet } from "react-router-dom";
 import Layout from "./Layout/Layout";
 
 const Dashboard = () => {
     return (
         <Layout>
-            <Statistics />
+            <Outlet />
         </Layout>
     );
 };
