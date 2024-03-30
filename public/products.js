@@ -13,28 +13,28 @@ export default [
         "price": 300
     },
     {
-        "id": 2,
+        "id": "2",
         "image": panjabi,
         "name": "Panjabi",
         "desc": "It is a good looking panjabi",
         "price": 1000
     },
     {
-        "id": 3,
+        "id": "3",
         "image": lungi,
         "name": "Lungi",
         "desc": "It is a good looking lungi",
         "price": 200
     },
     {
-        "id": 4,
+        "id": "4",
         "image": sherwani,
         "name": "Sherwani",
         "desc": "It is a good looking sherwani",
         "price": 1300
     },
     {
-        "id": 5,
+        "id": "5",
         "image": saree,
         "name": "Sharee",
         "desc": "It is a good looking sharee",
