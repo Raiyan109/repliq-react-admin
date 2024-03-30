@@ -7,6 +7,7 @@ import ProductList from "../pages/ProductList";
 import Dashboard from "../pages/Dashboard";
 import Layout from "../pages/Layout/Layout";
 import Statistics from "../components/Statistics";
+import AddProduct from "../pages/AddProduct";
 
 const routes = createBrowserRouter([
     {
@@ -32,6 +33,10 @@ const routes = createBrowserRouter([
             {
                 path: 'statistics',
                 element: <Statistics />
+            },
+            {
+                path: 'add',
+                element: <AddProduct />
             },
         ]
     },
