@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
-import ProductsJson from '../../public/products'
 const ProductDetail = () => {
     const { id } = useParams()
-    const products = ProductsJson.find((item) => item.id === id)
+    const ProductsStorage = JSON.parse(localStorage.getItem('newProduct'))
+    const products = ProductsStorage.find((item) => item.id === id)
+
 
     if (!products) {
         return <p>{`This page does not contain ${id} details`}</p>

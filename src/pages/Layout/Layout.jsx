@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import AllSideBarPages from "../../components/AllSideBarPages";
 
+// eslint-disable-next-line react/prop-types
 const Layout = ({ children }) => {
     return (
         <div>
