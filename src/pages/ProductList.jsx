@@ -3,6 +3,7 @@ import panjabi from '../assets/panjabi.jpeg'
 import lungi from '../assets/lungi.jpeg'
 import sherwani from '../assets/sherwani.jpeg'
 import saree from '../assets/pexels-rohit-photography-19569602.jpg'
+import Products from './Products'
 
 const ProductList = () => {
     const products = [
@@ -43,8 +44,14 @@ const ProductList = () => {
         },
     ]
     return (
-        <div>
-
+        <div className='flex justify-center items-center'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
+                {
+                    products.map((product) => (
+                        <Products key={product.id} product={product} />
+                    ))
+                }
+            </div>
         </div>
     );
 };

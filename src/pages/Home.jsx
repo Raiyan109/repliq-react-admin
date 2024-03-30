@@ -1,10 +1,11 @@
 import Navbar from '../components/Navbar';
+import ProductList from './ProductList';
 
 const Home = () => {
     return (
         <div>
             <Navbar />
-            kjkj
+            <ProductList />
         </div>
     );
 };
