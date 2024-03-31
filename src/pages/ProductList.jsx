@@ -2,8 +2,8 @@
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Products from './Products'
-import products from '../../public/products';
-products
+import ProductsJson from '../../public/products';
+
 
 const ProductList = () => {
 
@@ -19,9 +19,13 @@ const ProductList = () => {
                 <h1 className='text-4xl'>Product List</h1>
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
                     {
-                        ProductsStorage.map((product) => (
+                        ProductsStorage ? ProductsStorage.map((product) => (
                             <Products key={product.id} product={product} />
                         ))
+                            :
+                            ProductsJson.map((product) => (
+                                <Products key={product.id} product={product} />
+                            ))
                     }
                 </div>
             </div>
