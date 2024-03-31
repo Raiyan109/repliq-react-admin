@@ -1,5 +1,9 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
+import Navbar from "../components/Navbar";
+
 const ProductDetail = () => {
+    const [cart, setCart] = useState([])
     const { id } = useParams()
     const ProductsStorage = JSON.parse(localStorage.getItem('newProduct'))
     const products = ProductsStorage.find((item) => item.id === id)
@@ -8,9 +12,34 @@ const ProductDetail = () => {
     if (!products) {
         return <p>{`This page does not contain ${id} details`}</p>
     }
-    console.log(id);
+
+
+    const addToCart = (productsInput) => {
+        const ProductsStorage = JSON.parse(localStorage.getItem('newProduct'));
+        const existingProductIndex = ProductsStorage.findIndex((item) => item.id === productsInput.id);
+
+        if (existingProductIndex !== -1) {
+            const updatedCart = [...ProductsStorage];
+            updatedCart[existingProductIndex].quantity = parseInt(updatedCart[existingProductIndex].quantity || 0) + 1;
+            localStorage.setItem('newProduct', JSON.stringify(updatedCart));
+            // localStorage.setItem('cartItems', JSON.stringify(updatedCart));
+            // setCart(updatedCart);
+            // console.log(cart);
+        } else {
+            // Product does not exist in the cart, add it
+            const newProduct = { id: productsInput.id, quantity: 1 }; // Assuming productsInput has an 'id' property
+            const updatedCart = [...ProductsStorage, newProduct];
+            localStorage.setItem('newProduct', JSON.stringify(updatedCart)); // Update localStorage
+            // setCart(updatedCart);
+        }
+        let addedCart = []
+        addedCart.push(productsInput)
+        localStorage.setItem('item', JSON.stringify(addedCart));
+    }
+
     return (
         <div>
+            <Navbar />
             {products && (
                 <>
 
@@ -46,8 +75,10 @@ const ProductDetail = () => {
                                     <li className="black"></li>
                                     <li className="blue"></li>
                                 </ul>
-                                <span className="foot"><i className="fa fa-shopping-bag"></i>Buy Now</span>
-                                <span className="foot"><i className="fa fa-shopping-cart"></i>Add TO Cart</span>
+
+                                <button type="button"
+                                    onClick={() => addToCart(products)}
+                                    className="px-6 py-2 font-semibold rounded mt-4 bg-blue-300">Add To Cart</button>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import cartImg from '../assets/cart.jpg'
 
 const Navbar = () => {
+    const cart = JSON.parse(localStorage.getItem('item'));
+    console.log(cart.length);
+
     return (
         <div>
             <header className="text-gray-600 body-font">
@@ -14,6 +18,13 @@ const Navbar = () => {
                     <div className="flex gap-3">
                         <Link to='/dashboard'>Dashboard</Link>
                         <Link to='/signup'>Register</Link>
+                        <Link to='/signup'>
+                            <div className="relative">
+                                <span className="bg-red-600 absolute top-0 right-0 w-4 h-4 rounded-full flex justify-center items-center text-xs text-white">{cart.length}</span>
+                                <img src={cartImg} alt="" className="w-9 h-9 object-cover" />
+                            </div>
+                        </Link>
+
                     </div>
 
                 </div>
