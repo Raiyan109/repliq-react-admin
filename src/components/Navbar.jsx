@@ -3,7 +3,7 @@ import cartImg from '../assets/cart.jpg'
 
 const Navbar = () => {
     const cart = JSON.parse(localStorage.getItem('item'));
-    console.log(cart.length);
+    console.log(cart);
 
     return (
         <div>
