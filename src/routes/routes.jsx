@@ -5,9 +5,8 @@ import SignUp from "../pages/SignUp";
 import ProductDetail from "../pages/ProductDetail";
 import ProductList from "../pages/ProductList";
 import Dashboard from "../pages/Dashboard";
-import Layout from "../pages/Layout/Layout";
-import Statistics from "../components/Statistics";
 import AddProduct from "../pages/AddProduct";
+import MyProduct from "../pages/MyProduct";
 
 const routes = createBrowserRouter([
     {
@@ -31,8 +30,8 @@ const routes = createBrowserRouter([
         element: <Dashboard />,
         children: [
             {
-                path: 'statistics',
-                element: <Statistics />
+                path: 'myProduct',
+                element: <MyProduct />
             },
             {
                 path: 'add',
@@ -40,10 +39,6 @@ const routes = createBrowserRouter([
             },
         ]
     },
-    // {
-    //     path: '/statistics',
-    //     element: <Statistics />
-    // },
     {
         path: '/:id',
         element: <ProductDetail />

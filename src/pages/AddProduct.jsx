@@ -16,7 +16,8 @@ const AddProduct = () => {
 
     const addProduct = (e) => {
         e.preventDefault()
-        const newProduct = [...ProductJson, {
+        const existingProducts = JSON.parse(localStorage.getItem('newProduct')) || [];
+        const newProduct = [...existingProducts, {
             "id": id,
             "name": name,
             "image": image,
